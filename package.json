@@ -1,0 +1,24 @@
+{
+  "name": "pme",
+  "version": "1.0.0",
+  "description": "process manager easy for nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimhou/pme.git"
+  },
+  "keywords": [
+    "process",
+    "manager",
+    "nodejs"
+  ],
+  "author": "kimhou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kimhou/pme/issues"
+  },
+  "homepage": "https://github.com/kimhou/pme#readme"
+}
