@@ -26,8 +26,8 @@
   "pme": {
     "nodePath": "/usr/local/bin/node",
     "dashboardServer": {
-      ip: '',
-      prot: ''
+      "ip": "",
+      "prot": ""
     }
   },
   "dependencies": {
