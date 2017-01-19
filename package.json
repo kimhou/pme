@@ -2,7 +2,9 @@
   "name": "pme",
   "version": "1.0.0",
   "description": "process manager easy for nodejs",
-  "main": "index.js",
+  "preferGlobal": true,
+  "main": "./lib/index.js",
+  "bin": "./lib/bin/pme-cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,5 +22,15 @@
   "bugs": {
     "url": "https://github.com/kimhou/pme/issues"
   },
-  "homepage": "https://github.com/kimhou/pme#readme"
+  "homepage": "https://github.com/kimhou/pme#readme",
+  "pme": {
+    "nodePath": "/usr/local/bin/node",
+    "dashboardServer": {
+      ip: '',
+      prot: ''
+    }
+  },
+  "dependencies": {
+    "commander": "^2.9.0"
+  }
 }
