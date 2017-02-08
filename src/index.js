@@ -3,22 +3,23 @@
  * @desc
  * @author Created by kimhou on 2017/1/18
  */
-import Client from '../Client'
 import EventEmitter from 'events'
-import Api from './Api'
+import * as api from './Api'
 import logger from './util/logger'
 
 export default class extends EventEmitter {
 	constructor() {
 		super();
 		this.cwd = process.cwd();
-		this.client = new Client();
-		this.api = new Api({client: this.client});
 	}
 
 	laugtchApi(method, param, commander) {
-		if (this.api && this.api[method] && this.api[method] instanceof Function) {
-			this.api[method]({method, param: param == null ? undefined : param, commander});
+		if (api[method] && api[method] instanceof Function) {
+			try{
+				api[method]({method, param: param == null ? undefined : param, commander});
+			}catch (e){
+				logger.error('api try error', e.stack);
+			}
 		} else {
 			logger.error(`method not found: <${method}>`);
 			this.exit();

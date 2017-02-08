@@ -6,7 +6,8 @@
   "main": "./lib/index.js",
   "bin": "./lib/bin/pme-cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "chmod +x scripts/build.sh && scripts/build.sh",
+    "test": "chmod +x lib/bin/pme-cli.js && pme start lib/test/test.js --debug"
   },
   "repository": {
     "type": "git",
@@ -24,13 +25,26 @@
   },
   "homepage": "https://github.com/kimhou/pme#readme",
   "pme": {
+    "logLevel": "info",
     "nodePath": "/usr/local/bin/node",
     "dashboardServer": {
-      "ip": "",
-      "prot": ""
+      "ip": "127.0.0.1",
+      "port": "8401",
+      "open": true
+    },
+    "pmeServer": {
+      "port": "8402",
+      "open": true
     }
   },
   "dependencies": {
-    "commander": "^2.9.0"
+    "async": "^2.1.4",
+    "chalk": "^1.1.3",
+    "cli-table2": "^0.2.0",
+    "commander": "^2.9.0",
+    "date-format": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-preset-qcloud-qws-node-transform": "^1.0.3"
   }
 }

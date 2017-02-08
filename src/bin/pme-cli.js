@@ -2,7 +2,6 @@
 
 import commander from 'commander'
 import pkg from '../../package.json'
-import logger from '../util/logger'
 
 commander.version(pkg.version)
 	.option('-v --version', 'get version')
@@ -12,19 +11,30 @@ commander.version(pkg.version)
 	.usage('[cmd] app')
 	.parse(process.argv);
 
-process.qwsEnv = {
-	qws_env_exec_path: process.execPath || 'QWS_NODE',
-	qws_env_cwd: process.cwd(),
-	qws_env_debug: commander.debug
+const customConfig = {
+	logLevel: 'info',
+	nodePath: process.execPath,
+	dashboardServer: {open: false},
+	...(pkg.pme || {})
+};
+if (commander.debug) {
+	customConfig.logLevel = 'trace';
 }
 
+process.pme_env = {
+	exec_path: pkg.pem || process.execPath,
+	cwd: process.cwd(),
+	debug: commander.debug,
+	customConfig
+}
 
+const logger = require('../util/logger');
 const Top = require('../index');
 const top = new Top();
 
-logger.debug(JSON.stringify({qwsEnv: process.qwsEnv}));
+logger.debug(JSON.stringify({pme_env: process.pme_env}));
 
-logger.info(`QWS version ${pkg.version}`);
+logger.info(`pme version ${pkg.version}`);
 
 commander.command('start <file|appName|appId|all>')
 	.description('launch start')
@@ -94,12 +104,4 @@ if (process.argv.length == 2) {
 	process.exit(0);
 }
 
-top.client.connect().then(()=> {
-	logger.debug('top on ready');
-	commander.parse(process.argv);
-}).catch((e)=> {
-	logger.error('[client connect error]', e.stack);
-});
-top.api.on('complete', (data)=> {
-	top.exit(0);
-});
+commander.parse(process.argv);
